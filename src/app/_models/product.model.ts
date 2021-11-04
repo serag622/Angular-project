@@ -9,7 +9,7 @@ export interface Product{
     price : number;
     discount?: number;
     paymentType: payment[]
-    catogrey:catogrey;
+    catogrey?:catogrey;
     tags?: Tag[]
     imgUrls: string[];
 }

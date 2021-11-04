@@ -8,8 +8,9 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 const routes: Routes = [
   {path: '', component :ProductListingComponent},
   {path:'home', redirectTo:'' , pathMatch:'full'},
-  {path: 'add', component: AddProductComponent},
-  {path: 'details', component:ProductDetailsComponent},
+  {path:'product/listing' , component:ProductListingComponent},
+  {path:'product/add', component:AddProductComponent},
+  {path: 'product/details', component:ProductDetailsComponent},
   {path: '**', component:NotFoundComponent}
 ];
 

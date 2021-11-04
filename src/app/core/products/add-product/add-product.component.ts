@@ -5,6 +5,8 @@ import { payment } from 'src/app/_models/payment.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { Product } from 'src/app/_models/product.model';
+import { productservice } from 'src/app/_services/productservice.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +21,9 @@ export class AddProductComponent implements OnInit {
   product  = <Product>{}
   // @ViewChild('form') form!:ElementRef;
 
-  constructor(private catogreyservice: CategoryService , private paymentService: PaymentService) {
+  constructor(private catogreyservice: CategoryService , private paymentService: PaymentService , private productService: productservice,private router: Router) {
+
+
     this.product={id:1,
       basicData:[{id:1,name:'',desc:''}]
       ,price:0,
@@ -51,6 +55,10 @@ export class AddProductComponent implements OnInit {
      this.product.catogrey =cat;}
 
     console.log(this.product)
+
+
+    this.productService.addProduct(this.product)
+    this.router.navigateByUrl('home')
   }
 
   onTagAdded(tagInput :HTMLInputElement){

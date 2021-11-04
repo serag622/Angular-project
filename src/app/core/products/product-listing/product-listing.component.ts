@@ -23,24 +23,35 @@ export class ProductListingComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-
-
-  const numberOfPages =Math.ceil(this.productListArray.length/this.pageSize);
+  paging(){
+    const numberOfPages =Math.ceil(this.productListArray.length/this.pageSize);
     for(let i = 0; i < numberOfPages; i++) {
       this.noOpages.push(i+1);
     }
+  }
 
+  ngOnInit(): void {
+
+    this.paging()
     this.sliceArray()
+
+    this.productService.productchanged.subscribe(
+      (next)=>{
+        this.productListArray = next
+         this.paging()
+         this.sliceArray()
+      },
+      (error)=>{},
+      ()=>{}
+    )
 
     this.productService.itemDeleted.subscribe(
       (next)=>{
-        console.log(next);
-          this.productListArray.splice(next, 1)
+        this.productListArray = next;
           let numberOfPages =Math.ceil(this.productListArray.length/this.pageSize);
           if(numberOfPages < this.noOpages.length){
             this.noOpages.pop()
-          }
+           }
           this.sliceArray()
       },
       (error)=>{},
@@ -87,7 +98,6 @@ export class ProductListingComponent implements OnInit {
       this.noOpages.pop()
     }
     else{
-      // this.noOpages=[]
       this.noOpages.push(i+this.noOpages.length+1)
     }
    }

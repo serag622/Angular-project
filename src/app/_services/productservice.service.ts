@@ -5,6 +5,7 @@ export class productservice{
 
   itemAdded = new EventEmitter<Product>()
   itemDeleted = new EventEmitter()
+  productchanged = new EventEmitter()
 
 
 
@@ -52,16 +53,20 @@ export class productservice{
 
   addProduct(product :Product){
 
+    this.productArray.push(product);
+    this.productchanged.emit(this.productArray)
+
   }
 
   updateProduct(product :Product){
+
 
   }
 
   deleteProduct(id :number){
     let index  = this.productArray.findIndex(p => p.id == id);
-    console.log(index);
-    this.itemDeleted.emit(index)
+    this.productArray.splice(index, 1);
+    this.itemDeleted.emit(this.productArray)
   }
 
 }
