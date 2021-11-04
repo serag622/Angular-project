@@ -12,4 +12,5 @@ export interface Product{
     catogrey?:catogrey;
     tags?: Tag[]
     imgUrls: string[];
+    relatedProductsIds?: number[];
 }

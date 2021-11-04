@@ -3,12 +3,12 @@
     <div class="item-medium-1__image image" [style.backgroundImage]="'url(' + product.imgUrls[0] + ')'">
         <a  class="item-medium-1__action" (click)="itemAddedtoCart()">Add to Cart</a>
     </div>
-    <a routerLink="/product/details">
+    <a [routerLink]="['/product','details',product.id]">
         <h4>{{product.basicData[0].name}}</h4>
         <div class="flex-row">
             <div>
                 <del *ngIf="product.discount" [innerText]="product.price">$</del>
-                <span class="lable">$ {{getprice()}}</span>
+                <span class="lable">{{getprice() | currency: 'USD'}}</span>
             </div>
         </div>
     </a>

@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'product/listing' , component:ProductListingComponent},
   {path:'product/add', component:AddProductComponent},
   {path:'product/edit/:id', component:AddProductComponent},
-  {path: 'product/details', component:ProductDetailsComponent},
+  {path:'product/details/:id', component:ProductDetailsComponent},
   {path: '**', component:NotFoundComponent}
 ];
 
