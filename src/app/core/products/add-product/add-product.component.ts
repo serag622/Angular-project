@@ -6,7 +6,7 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { Product } from 'src/app/_models/product.model';
 import { productservice } from 'src/app/_services/productservice.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -20,8 +20,11 @@ export class AddProductComponent implements OnInit {
   paymentMethod : payment[] = this.paymentService.getAllpayment();
   product  = <Product>{}
   // @ViewChild('form') form!:ElementRef;
+  isEditMode = false;
 
-  constructor(private catogreyservice: CategoryService , private paymentService: PaymentService , private productService: productservice,private router: Router) {
+  constructor(private catogreyservice: CategoryService , private paymentService: PaymentService
+     , private productService: productservice,private router: Router,
+     private activatedRoute: ActivatedRoute) {
 
 
     this.product={id:1,
@@ -36,7 +39,17 @@ export class AddProductComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const productid = this.activatedRoute.snapshot.params.id;
+    const product = this.productService.getproductById(+productid);
+
+    if(product){
+     this.product={...product}
+     this.isEditMode =true;
+    }
+    console.log(productid);
+    console.log(product)
+  }
 
 
 
@@ -54,10 +67,12 @@ export class AddProductComponent implements OnInit {
     if(cat){
      this.product.catogrey =cat;}
 
-    console.log(this.product)
-
-
-    this.productService.addProduct(this.product)
+     if(this.isEditMode){
+      this.productService.updateProduct(this.product)
+     }
+     else{
+      this.productService.addProduct(this.product)
+     }
     this.router.navigateByUrl('home')
   }
 

@@ -48,19 +48,18 @@ export class productservice{
   }
 
   getproductById(id :number){
-
+    return this.productArray.find(product => product.id === id)
   }
 
   addProduct(product :Product){
-
     this.productArray.push(product);
     this.productchanged.emit(this.productArray)
-
   }
 
   updateProduct(product :Product){
-
-
+    let index  = this.productArray.findIndex(p => p.id ==product.id);
+    this.productArray[index] = product;
+    return this.productArray;
   }
 
   deleteProduct(id :number){
